@@ -1,16 +1,24 @@
-from fastapi import APIRouter, HTTPException
-from app.schemas import Book
-from app.crud import add_book, get_book
+from fastapi import APIRouter
 
 router = APIRouter()
 
+# Temporary placeholder routes
+@router.get("/")
+async def list_books():
+    return {"message": "List all books"}
+
 @router.post("/")
-async def create_book(book: Book):
-    return await add_book(book)
+async def create_book():
+    return {"message": "Create a new book"}
 
 @router.get("/{book_id}")
-async def read_book(book_id: int):
-    book = await get_book(book_id)
-    if not book:
-        raise HTTPException(status_code=404, detail="Book not found")
-    return book
+async def get_book(book_id: int):
+    return {"message": f"Retrieve book with ID {book_id}"}
+
+@router.put("/{book_id}")
+async def update_book(book_id: int):
+    return {"message": f"Update book with ID {book_id}"}
+
+@router.delete("/{book_id}")
+async def delete_book(book_id: int):
+    return {"message": f"Delete book with ID {book_id}"}
